@@ -1,0 +1,140 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.searchBar {
+  height: 12vh;
+  display: flex;
+  justify-content: center;
+  align-items:end;
+  position: sticky;
+}
+.mainBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  flex-direction: column;
+}
+.footer {
+  height: 10vh;
+}
+
+
+#bodyCity p {
+  font-size: 9vmin;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1px;
+}
+#bodyTemp p {
+  font-size: 18vmin;
+  font-weight: 100;
+  color: #7F7F7F;
+  line-height: 160px;
+}
+#bodyTemp span {
+  font-size: 8vmin;
+  vertical-align: super;
+}
+
+
+.searchBar input {
+  border-radius: 25px;
+  height: 40px;
+  width: 50vh;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: 500;
+  font-size: 2.8vh;
+  text-transform:uppercase;
+}
+
+
+.searchBody {
+  margin-top: 5vh;
+  max-height: 83vh;
+  overflow-y: scroll;
+}
+
+.showCity {
+  width: 55vh;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: hidden;
+}
+
+.cityCell {
+  width: 46.5vh;
+  text-align: center;
+  height: 65px;
+  background-color: #3b3b3b;
+  margin-bottom: 2.1vh;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  flex-wrap: wrap;
+}
+
+.cityCell h1 {
+  width: 30vh;
+  color: white;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  font-size: x-large;
+  line-height: 0.01px;
+}
+
+.cityCell p {
+  width: 30vh;
+  color: rgb(177, 177, 177);
+  font-weight: 300;
+  font-size: medium;
+  line-height: 0.1px;
+}
+
+.footer-flex {
+  display: flex;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+}
+.footer-cell {
+  background-color: #acaaaa;
+  padding: 9px 18px;
+  border-radius: 10px;
+}
+.footer-cell h3,p{
+  text-align: center;
+}
+.footer-cell h3 {
+  font-weight: 600;
+}
+
+#main-spinner {
+  margin-left: auto;
+  margin-right: auto;
+}
