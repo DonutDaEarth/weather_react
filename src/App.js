@@ -31,7 +31,7 @@ const App = () => {
       console.log("finding cities");
       findCity();
     }
-  })
+  } , [data.RECORDS])
 
 
   const searchCity = (search, data) => {
