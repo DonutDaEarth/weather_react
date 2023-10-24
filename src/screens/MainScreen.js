@@ -17,7 +17,6 @@ const MainScreen = (id) => {
 
   useEffect(() => {
     if(!data.name) {
-      console.log("WWWW")
       findCity();
     }
   });
