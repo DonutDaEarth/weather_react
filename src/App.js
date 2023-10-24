@@ -22,7 +22,7 @@ const App = () => {
 
   const findCity = () => {
     axios.get(url).then((response) => {
-        setData(response.data);
+        setData(response.data); 
     })
   }
 

@@ -40,20 +40,20 @@ const MainScreen = (id) => {
       </section>
         
       <section className='footer'>
-        <div class="footer-flex">
-          <div class="footer-cell">
+        <div className="footer-flex">
+          <div className="footer-cell">
             <p>Feels Like</p>
             {data.main? <h3>{data.main.feels_like.toFixed()}°C</h3>  : null}
           </div>
-          <div class="footer-cell">
+          <div className="footer-cell">
             <p>Humidity</p>
             {data.main? <h3>{data.main.humidity.toFixed()}%</h3>  : null}
           </div>
-          <div class="footer-cell">
+          <div className="footer-cell">
             <p>Pressure</p>
             {data.main? <h3>{data.main.pressure.toFixed()} Pa</h3>  : null}
           </div>
-          <div class="footer-cell">
+          <div className="footer-cell">
             <p>Wind Speed</p>
             {data.main? <h3>{data.wind.speed.toFixed()} m/h</h3>  : null}
           </div>
