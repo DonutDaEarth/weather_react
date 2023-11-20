@@ -3,36 +3,49 @@ import { useCallback, useContext } from 'react';
 import { GlobalContext } from "../context/globalContext"
 
 const fetchCityWeather = (city) =>  {
-    const apikey = `8a7e197037009d7a5c570e8387da3825`;
+    const apikey = `7400f50facb82737b4de9574174c6a0c`;
     const url = `https://api.openweathermap.org/data/2.5/weather?id=${city}&appid=${apikey}&units=metric`;
- 
-    axios.get(url).then((response) => {
-        return response.data;
-      })
+    return axios.get(url);
+    // axios.get(url).then((response) => {
+    //     return response.data;
+    // })
 }
 
 const useGetWeather = ()=> {
     const {state, updateState} = useContext(GlobalContext);
     const { weather: {data, isLoading = false} = {}} = state;
-    const getWeather = useCallback((city)=>{
-        updateState({
-            ...updateState,
-            isLoading: true,
-        });
-
-        return fetchCityWeather(city).then((res)=>{
-            const { result } = res;
+    const getWeather = useCallback(
+        (city)=>{
             updateState({
-                weather: {
-                    ...state.weather,
-                    data: result, isLoading: false,
-                },
+                isLoading: true,
             });
-        }).catch((error) => {
-            console.log('Error', error);
-        })
-    }, [updateState]);
-    return {data, getWeather, isLoading};
+
+            return fetchCityWeather(city)
+            .then((res)=>{
+                const { data } = res;
+
+                updateState({
+                    weather: {
+                        data,
+                        isLoading: false,
+                    },
+                });
+            })
+            .catch((error) => {
+                updateState({
+                    weather: {
+                        error,
+                        isLoading: false,
+                    },
+                });
+            })
+        }, [updateState]
+    );
+    return {
+        data, 
+        getWeather, 
+        isLoading
+    };
 };
 
 export default useGetWeather;

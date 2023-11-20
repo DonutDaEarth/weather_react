@@ -2,6 +2,10 @@ import React, {useEffect,useState} from 'react';
 import axios from 'axios';
 import MainScreen from './screens/MainScreen';
 import SearchScreen from './screens/SearchScreen';
+import useCityStorage from "./hooks/useCityStorage";
+import recentScreen from './screens/RecentScreen';
+
+
 
 const App = () => {
   const maxSize = 500;
@@ -9,9 +13,11 @@ const App = () => {
   const [data,setData] = useState({});
   const url = "https://raw.githubusercontent.com/manifestinteractive/openweathermap-cities/master/data/owm_city_list.json";
   const [cityData,setCityData] = useState({});
-  const [cityID, setCityID] = useState("1642911");
-  const [currPage, setCurrPage] = useState(<MainScreen id={cityID}/>);//SearchScreen(cityData));
-  
+  const [cityID, setCityID] = useState("");
+  const [currPage, setCurrPage] = useState(<MainScreen />);
+  const { getStorage, setStorage } = useCityStorage();
+
+
 
   const handleClick = (id) => {
     setCity("");
@@ -69,8 +75,19 @@ const App = () => {
     
     //console.log(cityData);
   }
-
-  
+  const clearStorage = () => {
+    console.log(getStorage());
+    localStorage.clear();
+    setCurrPage(recentScreen(getStorage(), (id) => handleClick(id), () => clearStorage()));
+    console.log(getStorage());
+  }
+  const searchRecent = (recentHistory) => {
+    if(recentHistory) {
+      recentHistory.reverse();
+      setCurrPage(recentScreen(recentHistory, (id) => handleClick(id), () => clearStorage()));
+    }
+    
+  }
 
 
   return(
@@ -83,6 +100,7 @@ const App = () => {
             onKeyDown={findCity}
             value={city}
             onChange={event => data.RECORDS? searchCity(event.target.value, data) : setCity(event.target.value)}
+            onFocus={ () => searchRecent(getStorage())}
           />
           {/* <div className='searchDel' onClick={() => data.RECORDS? searchCity("", data) : setCity("")}>
             X

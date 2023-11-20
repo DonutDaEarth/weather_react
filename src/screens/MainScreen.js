@@ -1,64 +1,73 @@
-import React, {useEffect,useState} from 'react';
-import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import useGetWeather from "./../hooks/useGetWeather";
+import useCityStorage from "./../hooks/useCityStorage";
 
 
 const MainScreen = (id) => {
-  const [data,setData] = useState({});
-  const cityID = '1642911';
-  const url = 'https://api.openweathermap.org/data/2.5/weather?id='+id.id+'&appid=8a7e197037009d7a5c570e8387da3825&units=metric';
-  
-  const findCity = () => {
-    axios.get(url).then((response) => {
-        setData(response.data);
-        console.log(data);
-      })
-  };
+  const { getStorage, setStorage } = useCityStorage();
+  const {data: weatherData, getWeather} = useGetWeather();
 
   useEffect(() => {
-    if(!data.name) {
-      findCity();
+    console.log("sent request for "+id.id)
+    
+    if(id.id !== undefined) {
+      getWeather(id.id);
     }
-  });
+    
+  }, []);
+
+  useEffect(() => {
+    if(weatherData?.main) {
+      if(weatherData.id == id.id) {
+        console.log(`storage to ${weatherData.name}`);
+        setStorage(weatherData);
+      }
+      
+    }
+  }, [weatherData])
 
 
   return (
     <div className='mainPage'>
       <Spinner animation="border" id="main-spinner"/>
-      {data.main? <div>
-      <section className='mainBody'>
-        <div className='bodyCell' id='bodyCity'>
-          <p>{data.name}</p>
-        </div>
-        <div className='bodyCell' id='bodyTemp'>
-          {data.main? <p>{data.main.temp.toFixed()}<span>°C</span></p>  : null}
-        </div>
-        <div className='bodyCell' id='bodyCloud'>
-          <p>{data.weather? data.weather[0].main : null}</p>
-        </div>
-      </section>
-        
-      <section className='footer'>
-        <div className="footer-flex">
-          <div className="footer-cell">
-            <p>Feels Like</p>
-            {data.main? <h3>{data.main.feels_like.toFixed()}°C</h3>  : null}
+      
+      {/* {weatherData.main?  */}
+      <div>
+        <section className='mainBody'>
+          <div className='bodyCell' id='bodyCity'>
+            <p>{weatherData?.name?? "-"}</p>
           </div>
-          <div className="footer-cell">
-            <p>Humidity</p>
-            {data.main? <h3>{data.main.humidity.toFixed()}%</h3>  : null}
+          <div className='bodyCell' id='bodyTemp'>
+            <p>{weatherData?.main?.temp?.toFixed()?? "-"}<span>°C</span></p>
           </div>
-          <div className="footer-cell">
-            <p>Pressure</p>
-            {data.main? <h3>{data.main.pressure.toFixed()} Pa</h3>  : null}
+          <div className='bodyCell' id='bodyCloud'>
+            <p>{weatherData?.weather[0]?.main?? "-"}</p>
           </div>
-          <div className="footer-cell">
-            <p>Wind Speed</p>
-            {data.main? <h3>{data.wind.speed.toFixed()} m/h</h3>  : null}
+        </section>
+          
+        <section className='footer'>
+          <div className="footer-flex">
+            <div className="footer-cell">
+              <p>Feels Like</p>
+              <h3>{weatherData?.main?.feels_like?.toFixed()?? "-"}°C</h3>
+            </div>
+            <div className="footer-cell">
+              <p>Humidity</p>
+              <h3>{weatherData?.main?.humidity?.toFixed()?? "-"}%</h3>
+            </div>
+            <div className="footer-cell">
+              <p>Pressure</p>
+              <h3>{weatherData?.main?.pressure?.toFixed()?? "-"} Pa</h3>
+            </div>
+            <div className="footer-cell">
+              <p>Wind Speed</p>
+              <h3>{weatherData?.wind?.speed?.toFixed()?? "-"} m/h</h3>
+            </div>
           </div>
-        </div>
-      </section> </div>
-    : <Spinner animation="border" id="main-spinner"/>}
+        </section> 
+      </div>
+    {/* : <Spinner animation="border" id="main-spinner"/>} */}
     </div>
   );
 }

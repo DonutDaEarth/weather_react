@@ -87,7 +87,6 @@ code {
   width: 46.5vh;
   text-align: center;
   height: 65px;
-  background-color: #3b3b3b;
   margin-bottom: 2.1vh;
   border-radius: 20px;
   cursor: pointer;
@@ -137,4 +136,21 @@ code {
 #main-spinner {
   margin-left: auto;
   margin-right: auto;
+}
+#normalCell {
+  background-color: #3b3b3b;
+}
+#clearRecent {
+  width: 46.5vh;
+  text-align: center;
+  height: 65px;
+  background-color: #730000;
+  margin-bottom: 2.1vh;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  flex-wrap: wrap;
 }
